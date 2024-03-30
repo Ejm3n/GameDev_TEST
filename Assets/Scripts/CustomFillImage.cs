@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(Image))]
 public class CustomFillImage : MonoBehaviour
 {
-    public float fillTime = 5f; // Время заполнения в секундах
+    [SerializeField] private float fillTime = 5f; // Время заполнения в секундах
     private Material material;
     private bool isFilling = false;
 
@@ -21,7 +21,7 @@ public class CustomFillImage : MonoBehaviour
         {
             if (isFilling)
             {
-                StopAllCoroutines(); // Остановить текущее заполнение
+                StopAllCoroutines(); 
             }
 
             StartCoroutine(FillEffect());
@@ -37,11 +37,11 @@ public class CustomFillImage : MonoBehaviour
         {
             timer += Time.deltaTime;
             float fillAmount = timer / fillTime;
-            material.SetFloat("_FillAmount", 0 + fillAmount); // Обратите внимание, что мы вычитаем из 1, чтобы начать с левого края
+            material.SetFloat("_FillAmount", 0 + fillAmount); 
             yield return null;
         }
 
-        material.SetFloat("_FillAmount", 1f); // Убедитесь, что заполнение полностью очищено
+        material.SetFloat("_FillAmount", 1f); 
         isFilling = false;
     }
 }

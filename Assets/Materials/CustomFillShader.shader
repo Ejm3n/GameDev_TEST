@@ -47,9 +47,9 @@ Shader "Custom/CustomFillShader"
                 // Преобразование координат UV в диапазон от -1 до 1
                 float2 centeredUV = (i.uv - 0.5) * 2.0;
                 // Инвертируем направление диагонали с учётом тангенса 66 градусов
-                float diagonalUV = centeredUV.y - 2.246 * centeredUV.x;
-                // Применяем _FillAmount, адаптированный под угол
-                float alpha = step(diagonalUV, _FillAmount * 4 - 2.0);
+                float diagonalUV = centeredUV.y - 2.475 * centeredUV.x;
+                // Применяем _FillAmount, адаптированный под угол, не уверен как это настроить корректно
+                float alpha = step(-diagonalUV, _FillAmount * 4.3 - 2.2);
                 fixed4 texColor = tex2D(_MainTex, i.uv);
                 texColor.a *= alpha;
                 return texColor;
