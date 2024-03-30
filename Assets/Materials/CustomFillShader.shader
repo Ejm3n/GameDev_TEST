@@ -4,6 +4,9 @@ Shader "Custom/CustomFillShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _FillAmount ("Fill Amount", Range(0,1)) = 0.5
+        _Angle ("Angle", Range(0,90)) = 68
+        _FillAmountMultiplier ("Fill Amount Multiplier", Range(0,5)) = 4.3
+        _FillAmountMinus("Fill Amount Minus", Range(0,5)) = 2.2
     }
     SubShader
     {
@@ -21,6 +24,9 @@ Shader "Custom/CustomFillShader"
 
             sampler2D _MainTex;
             float _FillAmount;
+            float _Angle;
+            float _FillAmountMultiplier;
+            float _FillAmountMinus;
 
             struct appdata
             {
@@ -47,9 +53,9 @@ Shader "Custom/CustomFillShader"
                 // Преобразование координат UV в диапазон от -1 до 1
                 float2 centeredUV = (i.uv - 0.5) * 2.0;
                 // Инвертируем направление диагонали с учётом тангенса 66 градусов
-                float diagonalUV = centeredUV.y - 2.475 * centeredUV.x;
+                float diagonalUV = centeredUV.y - tan(_Angle * 3.14159265 / 180.0) * centeredUV.x;
                 // Применяем _FillAmount, адаптированный под угол, не уверен как это настроить корректно
-                float alpha = step(-diagonalUV, _FillAmount * 4.3 - 2.2);
+                float alpha = step(-diagonalUV, _FillAmount * _FillAmountMultiplier - _FillAmountMinus);
                 fixed4 texColor = tex2D(_MainTex, i.uv);
                 texColor.a *= alpha;
                 return texColor;
@@ -58,5 +64,7 @@ Shader "Custom/CustomFillShader"
         }
     }
 }
+
+
 
 
