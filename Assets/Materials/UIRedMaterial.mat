@@ -61,13 +61,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Angle: 45
+    - _Angle: 68
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FillAmount: 1
+    - _FillAmountMinus: 2.2
+    - _FillAmountMultiplier: 4.3
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
